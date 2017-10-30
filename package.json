@@ -1,0 +1,49 @@
+{
+  "name": "modellr",
+  "version": "0.2.0",
+  "description": "Database connection manager for Sequelize.",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:aichholzer/modellr.git"
+  },
+  "keywords": [
+    "database",
+    "connection",
+    "Sequelize",
+    "manager"
+  ],
+  "author": {
+    "name": "Stefan Aichholzer",
+    "email": "play@analogbird.com",
+    "url": "https://github.com/aichholzer"
+  },
+  "engines": {
+    "node": ">=6.11.3"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aichholzer/modellr/issues"
+  },
+  "homepage": "https://github.com/aichholzer/modellr#readme",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "istanbul cover _mocha -- -R spec"
+  },
+  "dependencies": {
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.19.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "grunt": "^1.0.1",
+    "grunt-eslint": "^20.1.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.1",
+    "sinon": "^4.0.2"
+  }
+}
