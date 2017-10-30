@@ -35,11 +35,14 @@ describe('Modellr', () => {
     const m = require.call(null, '../lib/index.js');
 
     const connection = {
-      options: Object.assign({}, defaultOptions, { alias: 'local' }),
+      options: Object.assign({}, defaultOptions, { alias: 'alias' }),
       models
     };
 
     m.load(connection).then(() => {
+      expect(m.sequelizeInstances).to.be.an('object');
+      expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(2);
+      expect(m.instance('alias')).to.be.an('object');
       deleteCache();
       done();
     }).catch((error) => {
@@ -52,12 +55,18 @@ describe('Modellr', () => {
 
     const connection = {
       options: new Array(3).fill({}).map((conn, index) => Object.assign({}, defaultOptions, {
-        alias: `local_${index}`
+        alias: `alias_${index}`,
+        host: `localhost_${index}`
       })),
       models
     };
 
     m.load(connection).then(() => {
+      expect(m.sequelizeInstances).to.be.an('object');
+      expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(4);
+      new Array(3).fill('').forEach((key, index) => {
+        expect(m.instance(`alias_${index}`)).to.be.an('object');
+      });
       deleteCache();
       done();
     }).catch((error) => {

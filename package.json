@@ -28,7 +28,7 @@
   "homepage": "https://github.com/aichholzer/modellr#readme",
   "scripts": {
     "lint": "eslint .",
-    "test": "istanbul cover _mocha -- -R spec"
+    "test": "eslint . && istanbul cover _mocha -- -R spec"
   },
   "dependencies": {
     "pg": "^7.3.0",
