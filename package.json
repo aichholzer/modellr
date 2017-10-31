@@ -28,7 +28,7 @@
   "homepage": "https://github.com/aichholzer/modellr#readme",
   "scripts": {
     "lint": "eslint .",
-    "test": "eslint . && istanbul cover _mocha -- -R spec",
+    "test": "istanbul cover _mocha -- -R spec",
     "report": "CODECLIMATE_REPO_TOKEN=XXX codeclimate-test-reporter < ./coverage/lcov.info"
   },
   "dependencies": {
