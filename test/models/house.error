@@ -1,0 +1,3 @@
+module.exports = () => {
+  throw new Error('An error was thrown here, on purpose');
+};
