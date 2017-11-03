@@ -18,6 +18,9 @@ const testInstance = (instance) => {
   expect(instance.models).to.be.an('object');
   expect(Object.keys(instance.models)).to.have.lengthOf(4);
 };
+const prepareConnections = number => new Array(number).fill({}).map((conn, index) => Object.assign({}, defaultOptions, {
+  alias: `alias_${index}`
+}));
 
 let [m, sandbox] = [];
 describe('➔ Modellr', () => {
@@ -57,10 +60,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Multiple DB connections', (done) => {
-    const connection = new Array(3).fill({}).map((conn, index) => Object.assign({}, defaultOptions, {
-      alias: `alias_${index}`
-    }));
-    m.load(connection, models).then(() => {
+    m.load(prepareConnections(3), models).then(() => {
       expect(m.sequelizeInstances).to.be.an('object');
       testInstance(m.instance('default'));
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(4);
@@ -84,10 +84,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Close connections by alias', (done) => {
-    const connection = new Array(3).fill({}).map((conn, index) => Object.assign({}, defaultOptions, {
-      alias: `alias_${index}`
-    }));
-    m.load(connection, models).then(() => {
+    m.load(prepareConnections(3), models).then(() => {
       expect(m.sequelizeInstances).to.be.an('object');
       testInstance(m.instance('default'));
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(4);
@@ -101,10 +98,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Check if instance has models', (done) => {
-    const connection = new Array(3).fill({}).map((conn, index) => Object.assign({}, defaultOptions, {
-      alias: `alias_${index}`
-    }));
-    m.load(connection, models).then(() => {
+    m.load(prepareConnections(3), models).then(() => {
       expect(m.sequelizeInstances).to.be.an('object');
       testInstance(m.instance('default'));
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(4);
@@ -195,7 +189,7 @@ describe('➔ Modellr', () => {
 
   it('Multiple DB connections (with one error)', (done) => {
     m.sequelizeInstances = new Proxy(m.sequelizeInstances, {
-      set: function(target, property, value) {
+      set: (target, property, value) => {
         if (property === 'alias_1') {
           value.authenticate = sinon.stub().returns(Promise.reject(new Error('Invalid credentials.')));
         }
@@ -204,10 +198,7 @@ describe('➔ Modellr', () => {
       }
     });
 
-    const connection = new Array(3).fill({}).map((conn, index) => Object.assign({}, defaultOptions, {
-      alias: `alias_${index}`
-    }));
-    m.load(connection, models).then(() => {
+    m.load(prepareConnections(3), models).then(() => {
       expect(m.sequelizeInstances).to.be.an('object');
       testInstance(m.instance('default'));
 
