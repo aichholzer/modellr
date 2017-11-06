@@ -29,21 +29,24 @@
   "scripts": {
     "lint": "eslint .",
     "test": "istanbul cover _mocha -- -R spec",
-    "report": "CODECLIMATE_REPO_TOKEN=XXX codeclimate-test-reporter < ./coverage/lcov.info"
+    "report": "codecov && codeclimate-test-reporter < ./coverage/lcov.info && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
-    "pg": "^7.3.0",
+    "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.22.0"
+    "sequelize": "^4.22.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "codeclimate-test-reporter": "^0.5.0",
+    "codecov": "^3.0.0",
+    "coveralls": "^3.0.0",
     "eslint": "^4.10.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
-    "sinon": "^4.1.0"
+    "npm": "^5.5.1",
+    "sinon": "^4.1.1"
   }
 }
