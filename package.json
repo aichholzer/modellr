@@ -1,6 +1,6 @@
 {
   "name": "modellr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Database connection manager for Sequelize.",
   "main": "lib/index.js",
   "repository": {
@@ -10,8 +10,8 @@
   "keywords": [
     "database",
     "connection",
-    "Sequelize",
-    "manager"
+    "manager",
+    "Sequelize"
   ],
   "author": {
     "name": "Stefan Aichholzer",

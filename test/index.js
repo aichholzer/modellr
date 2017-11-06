@@ -62,8 +62,8 @@ describe('➔ Modellr', () => {
   it('Multiple DB connections', (done) => {
     m.load(prepareConnections(3), models).then(() => {
       expect(m.sequelizeInstances).to.be.an('object');
-      testInstance(m.instance('default'));
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(4);
+      testInstance(m.instance('default'));
       new Array(3).fill('').forEach((key, index) => {
         testInstance(m.instance(`alias_${index}`));
       });
@@ -75,8 +75,6 @@ describe('➔ Modellr', () => {
   it('Use default alias', (done) => {
     const connection = Object.assign({}, defaultOptions);
     m.load(connection, models).then(() => {
-      expect(m.sequelizeInstances).to.be.an('object');
-      expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(1);
       testInstance(m.instance('default'));
 
       done();
@@ -85,9 +83,6 @@ describe('➔ Modellr', () => {
 
   it('Close connections by alias', (done) => {
     m.load(prepareConnections(3), models).then(() => {
-      expect(m.sequelizeInstances).to.be.an('object');
-      testInstance(m.instance('default'));
-      expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(4);
       new Array(3).fill('').forEach((key, index) => {
         testInstance(m.instance(`alias_${index}`));
         m.close(`alias_${index}`);
@@ -97,11 +92,17 @@ describe('➔ Modellr', () => {
     }).catch(done);
   });
 
+  it('Close (non-existing) connection by alias', (done) => {
+    m.load(prepareConnections(3), models).then(() => {
+      m.close('connection_that_does_not_exist');
+      done();
+    }).catch(done);
+  });
+
   it('Check if instance has models', (done) => {
     m.load(prepareConnections(3), models).then(() => {
-      expect(m.sequelizeInstances).to.be.an('object');
-      testInstance(m.instance('default'));
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(4);
+      testInstance(m.instance('default'));
       new Array(3).fill('').forEach((key, index) => {
         const instance = m.instance(`alias_${index}`);
         testInstance(instance);
@@ -116,11 +117,10 @@ describe('➔ Modellr', () => {
   it('Get a model from an instance', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
     m.load(connection, models).then(() => {
-      expect(m.sequelizeInstances).to.be.an('object');
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(2);
-      testInstance(m.instance('alias'));
       expect(m.instance('alias').get('User')).to.be.a('function');
       expect(m.instance('alias').get('User').findById).to.be.a('function');
+      testInstance(m.instance('alias'));
 
       return m.instance('alias').get('User').findById(100);
     }).then((user) => {
@@ -136,11 +136,10 @@ describe('➔ Modellr', () => {
   it('Get a model from an instance (no instance alias)', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
     m.load(connection, models).then(() => {
-      expect(m.sequelizeInstances).to.be.an('object');
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(2);
-      testInstance(m.instance('alias'));
       expect(m.User).to.be.a('function');
       expect(m.User.findById).to.be.a('function');
+      testInstance(m.instance('alias'));
 
       return m.User.findById(100);
     }).then((user) => {
@@ -156,10 +155,9 @@ describe('➔ Modellr', () => {
   it('Get a null instead of model from an instance', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
     m.load(connection, models).then(() => {
-      expect(m.sequelizeInstances).to.be.an('object');
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(2);
-      testInstance(m.instance('alias'));
       expect(m.instance('alias').get('House')).to.equal(null);
+      testInstance(m.instance('alias'));
 
       done();
     }).catch(done);
@@ -199,11 +197,9 @@ describe('➔ Modellr', () => {
     });
 
     m.load(prepareConnections(3), models).then(() => {
-      expect(m.sequelizeInstances).to.be.an('object');
-      testInstance(m.instance('default'));
-
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(3);
       expect(m.sequelizeInstances.alias_1).to.equal(undefined);
+      testInstance(m.instance('default'));
       testInstance(m.instance('alias_0'));
       testInstance(m.instance('alias_2'));
 
