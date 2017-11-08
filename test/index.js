@@ -27,7 +27,6 @@ describe('➔ Modellr', () => {
   beforeEach(() => {
     m = require.call(null, '../lib/index.js');
     sandbox = sinon.sandbox.create();
-    sandbox.stub(console, 'error').returns(() => '');
     sandbox.stub(Sequelize.prototype, 'authenticate').returns(Promise.resolve(undefined));
   });
 
@@ -172,20 +171,23 @@ describe('➔ Modellr', () => {
     }).catch(done);
   });
 
-  it('Single DB connection (with error)', (done) => {
+  it('Single DB connection (with error with emitted event)', (done) => {
     sandbox.restore();
-    sandbox.stub(console, 'error').returns(() => '');
-    sandbox.stub(Sequelize.prototype, 'authenticate').returns(Promise.reject(new Error('Invalid credentials')));
+    sandbox.stub(Sequelize.prototype, 'authenticate').returns(Promise.reject(new Error('Invalid credentials.')));
     const connection = Object.assign({}, defaultOptions, { alias: 'alias', host: 'localhost_error' });
+
+    let emittedMessage;
+    m.on('warning', (msg) => { emittedMessage = msg; });
     m.load(connection, models).catch((err) => {
       expect(err.message).to.be.a('string');
+      expect(emittedMessage).to.equal('A connection to "alias" could not be established; Invalid credentials.');
       expect(err.message).to.equal('No valid database connections could be established.');
 
       done();
     }).catch(done);
   });
 
-  it('Multiple DB connections (with one error)', (done) => {
+  it('Multiple DB connections (with one error and emitted event)', (done) => {
     m.sequelizeInstances = new Proxy(m.sequelizeInstances, {
       set: (target, property, value) => {
         if (property === 'alias_1') {
@@ -196,9 +198,13 @@ describe('➔ Modellr', () => {
       }
     });
 
+    let emittedMessage;
+    m.on('warning', (msg) => { emittedMessage = msg; });
     m.load(prepareConnections(3), models).then(() => {
+      expect(emittedMessage).to.equal('A connection to "alias_1" could not be established; Invalid credentials.');
       expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(3);
       expect(m.sequelizeInstances.alias_1).to.equal(undefined);
+
       testInstance(m.instance('default'));
       testInstance(m.instance('alias_0'));
       testInstance(m.instance('alias_2'));
