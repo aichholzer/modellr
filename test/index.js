@@ -27,13 +27,13 @@ describe('➔ Modellr', () => {
   beforeEach(() => {
     m = require.call(null, '../lib/index.js');
     sandbox = sinon.sandbox.create();
-    sandbox.stub(Sequelize.prototype, 'authenticate').returns(Promise.resolve(undefined));
+    sandbox.stub(Sequelize.prototype, 'authenticate').resolves(undefined);
   });
 
   afterEach(() => {
-    delete require.cache[require.resolve('../lib/index.js')];
     m.close();
     sandbox.restore();
+    delete require.cache[require.resolve('../lib/index.js')];
   });
 
   it('Check the (empty) object', (done) => {
@@ -173,7 +173,7 @@ describe('➔ Modellr', () => {
 
   it('Single DB connection (with error with emitted event)', (done) => {
     sandbox.restore();
-    sandbox.stub(Sequelize.prototype, 'authenticate').returns(Promise.reject(new Error('Invalid credentials.')));
+    sandbox.stub(Sequelize.prototype, 'authenticate').rejects(new Error('Invalid credentials.'));
     const connection = Object.assign({}, defaultOptions, { alias: 'alias', host: 'localhost_error' });
 
     let emittedMessage;
@@ -191,7 +191,7 @@ describe('➔ Modellr', () => {
     m.sequelizeInstances = new Proxy(m.sequelizeInstances, {
       set: (target, property, value) => {
         if (property === 'alias_1') {
-          value.authenticate = sinon.stub().returns(Promise.reject(new Error('Invalid credentials.')));
+          value.authenticate = sinon.stub().rejects(new Error('Invalid credentials.'));
         }
         target[property] = value;
         return true;
