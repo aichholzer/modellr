@@ -1,11 +1,12 @@
 # modellr
-[![Coverage Status](https://coveralls.io/repos/github/aichholzer/modellr/badge.svg?branch=master)](https://coveralls.io/github/aichholzer/modellr?branch=master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/479ec171f96fd4e9c860/test_coverage)](https://codeclimate.com/github/aichholzer/modellr/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/479ec171f96fd4e9c860/maintainability)](https://codeclimate.com/github/aichholzer/modellr/maintainability)
 [![Build Status](https://travis-ci.org/aichholzer/modellr.svg?branch=master)](https://travis-ci.org/aichholzer/modellr)
+[![Coverage Status](https://coveralls.io/repos/github/aichholzer/modellr/badge.svg?branch=master)](https://coveralls.io/github/aichholzer/modellr?branch=master)
+[![codebeat badge](https://codebeat.co/badges/42587fbf-49f1-415a-8386-c7c3c6c294a3)](https://codebeat.co/projects/github-com-aichholzer-modellr-master)<br />
+[![Test Coverage](https://api.codeclimate.com/v1/badges/479ec171f96fd4e9c860/test_coverage)](https://codeclimate.com/github/aichholzer/modellr/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/479ec171f96fd4e9c860/maintainability)](https://codeclimate.com/github/aichholzer/modellr/maintainability)<br />
 [![Dependency Status](https://gemnasium.com/badges/github.com/aichholzer/modellr.svg)](https://gemnasium.com/github.com/aichholzer/modellr)
-[![codebeat badge](https://codebeat.co/badges/42587fbf-49f1-415a-8386-c7c3c6c294a3)](https://codebeat.co/projects/github-com-aichholzer-modellr-master)
-[![codecov](https://codecov.io/gh/aichholzer/modellr/branch/master/graph/badge.svg)](https://codecov.io/gh/aichholzer/modellr)
+[![Downloads](https://img.shields.io/npm/dt/modellr.svg)](https://www.npmjs.com/package/modellr)
+
 
 Database connection manager for Sequelize.<br />
 `modellr` will also load your models and map them to the DB instance, making them available throughout your application.
@@ -60,7 +61,15 @@ All models export the basic Sequelize usage/functionality as documented [here](h
 
 `.close(alias || null)` : Close DB connections and terminate the corresponding Sequelize instance. If the argument is `null` then all open connections will be terminated.
 
+#### Test
+
+```
+$> npm test
+```
+
+
 #### Contribute
+
 ```
 fork https://github.com/aichholzer/modellr
 ```
