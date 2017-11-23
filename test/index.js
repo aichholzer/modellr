@@ -113,6 +113,25 @@ describe('➔ Modellr', () => {
     }).catch(done);
   });
 
+  it('Get a model from an instance (via automatic selector)', (done) => {
+    const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
+    m.load(connection, models).then(() => {
+      expect(Object.keys(m.sequelizeInstances)).to.have.lengthOf(2);
+      expect(m.instance('alias').get('User')).to.be.a('function');
+      expect(m.instance('alias').get('User').findById).to.be.a('function');
+      testInstance(m.instance('alias'));
+
+      return m.instance('alias').User.findById(100);
+    }).then((user) => {
+      expect(user).to.be.an('object');
+      expect(user).to.have.property('id').and.to.be.a('number').and.to.equal(100);
+      expect(user).to.have.property('email').and.to.be.a('string').and.to.equal('test@test.com');
+      expect(user).to.have.property('name').and.to.be.a('string').and.to.equal('James Taylor');
+
+      done();
+    }).catch(done);
+  });
+
   it('Get a model from an instance', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
     m.load(connection, models).then(() => {

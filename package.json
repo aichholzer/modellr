@@ -1,6 +1,6 @@
 {
   "name": "modellr",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Database connection manager for Sequelize.",
   "main": "lib/index.js",
   "repository": {
