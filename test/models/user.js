@@ -32,11 +32,12 @@ module.exports = (sequelize, type) => {
     });
   };
 
-  model.findById = userId => Promise.resolve({
-    id: userId,
-    email: 'test@test.com',
-    name: 'James Taylor'
-  });
+  model.findById = (userId) =>
+    Promise.resolve({
+      id: userId,
+      email: 'test@test.com',
+      name: 'James Taylor'
+    });
 
   // Instance methods (available on the result set).
   model.prototype.getName = function getName() {};
