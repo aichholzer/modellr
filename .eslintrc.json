@@ -3,25 +3,25 @@
     "es6": true,
     "mocha": true
   },
-  "extends": "airbnb-base",
-  "plugins": [
-    "import"
-  ],
-  "globals": {},
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "plugins": ["import", "prettier"],
   "rules": {
-    "consistent-return": 0,
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
+    "arrow-parens": ["error", "always"],
     "no-underscore-dangle": 0,
-    "no-param-reassign": 0,
-    "no-console": 0,
-    "max-len": [
+    "no-console": "error",
+    "prettier/prettier": [
       "error",
-      120,
-      { "ignoreRegExpLiterals": true }
+      {
+        "semi": true,
+        "printWidth": 100,
+        "singleQuote": true,
+        "arrowParens": "always"
+      }
     ],
-    "import/newline-after-import": 0
+    "func-names": ["error", "always"],
+    "comma-dangle": ["error", "never"],
+    "no-param-reassign": ["error", { "props": false }],
+    "max-len": ["error", 100, { "ignoreRegExpLiterals": true }],
+    "import/no-extraneous-dependencies": 0
   }
 }
