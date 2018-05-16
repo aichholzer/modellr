@@ -1,4 +1,6 @@
 # modellr
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/aichholzer/modellr.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/modellr.svg)](https://badge.fury.io/js/modellr)
 [![Dependency Status](https://gemnasium.com/badges/github.com/aichholzer/modellr.svg)](https://gemnasium.com/github.com/aichholzer/modellr)
 [![Build Status](https://travis-ci.org/aichholzer/modellr.svg?branch=master)](https://travis-ci.org/aichholzer/modellr)
