@@ -2,7 +2,6 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/aichholzer/modellr.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/modellr.svg)](https://badge.fury.io/js/modellr)
-[![Dependency Status](https://gemnasium.com/badges/github.com/aichholzer/modellr.svg)](https://gemnasium.com/github.com/aichholzer/modellr)
 [![Build Status](https://travis-ci.org/aichholzer/modellr.svg?branch=master)](https://travis-ci.org/aichholzer/modellr)
 [![Downloads](https://img.shields.io/npm/dt/modellr.svg)](https://www.npmjs.com/package/modellr)<br />
 [![Test Coverage](https://api.codeclimate.com/v1/badges/479ec171f96fd4e9c860/test_coverage)](https://codeclimate.com/github/aichholzer/modellr/test_coverage)
