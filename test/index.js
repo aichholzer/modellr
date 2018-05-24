@@ -30,7 +30,7 @@ let [m, sandbox] = [];
 describe('➔ Modellr', () => {
   beforeEach(() => {
     m = require.call(null, '../lib/index.js');
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     sandbox.stub(Sequelize.prototype, 'authenticate').resolves(undefined);
   });
 
