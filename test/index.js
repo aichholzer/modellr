@@ -54,8 +54,7 @@ describe('➔ Modellr', () => {
 
   it('Single DB connection', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .then(() => {
         expect(m.modellrSequelizeInstances).to.be.an('object');
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
@@ -68,8 +67,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Multiple DB connections', (done) => {
-    m
-      .load(prepareConnections(3), models)
+    m.load(prepareConnections(3), models)
       .then(() => {
         expect(m.modellrSequelizeInstances).to.be.an('object');
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(4);
@@ -85,8 +83,7 @@ describe('➔ Modellr', () => {
 
   it('Use default alias', (done) => {
     const connection = Object.assign({}, defaultOptions);
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .then(() => {
         testInstance(m.instance('default'));
 
@@ -96,8 +93,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Close connections by alias', (done) => {
-    m
-      .load(prepareConnections(3), models)
+    m.load(prepareConnections(3), models)
       .then(() => {
         new Array(3).fill('').forEach((key, index) => {
           testInstance(m.instance(`alias_${index}`));
@@ -110,8 +106,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Close (non-existing) connection by alias', (done) => {
-    m
-      .load(prepareConnections(3), models)
+    m.load(prepareConnections(3), models)
       .then(() => {
         m.close('connection_that_does_not_exist');
         done();
@@ -120,8 +115,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Check if instance has models', (done) => {
-    m
-      .load(prepareConnections(3), models)
+    m.load(prepareConnections(3), models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(4);
         testInstance(m.instance('default'));
@@ -139,8 +133,7 @@ describe('➔ Modellr', () => {
 
   it('Get a model from an instance (via automatic selector)', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
         expect(m.instance('alias').get('User')).to.be.a('function');
@@ -171,8 +164,7 @@ describe('➔ Modellr', () => {
 
   it('Get a model from an instance', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
         expect(m.instance('alias').get('User')).to.be.a('function');
@@ -206,8 +198,7 @@ describe('➔ Modellr', () => {
 
   it('Get a model from an instance (no instance alias)', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
         expect(m.User).to.be.a('function');
@@ -238,8 +229,7 @@ describe('➔ Modellr', () => {
 
   it('Get a null instead of model from an instance', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
         expect(m.instance('alias').get('House')).to.equal(null);
@@ -251,8 +241,7 @@ describe('➔ Modellr', () => {
   });
 
   it('No valid DB connection', (done) => {
-    m
-      .load([], models)
+    m.load([], models)
       .catch((err) => {
         expect(err.message).to.be.a('string');
         expect(err.message).to.equal('No valid database connections options have been provided.');
@@ -274,8 +263,7 @@ describe('➔ Modellr', () => {
     m.on('warning', (msg) => {
       emittedMessage = msg;
     });
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .catch((err) => {
         expect(err.message).to.be.a('string');
         expect(emittedMessage).to.equal(
@@ -303,8 +291,7 @@ describe('➔ Modellr', () => {
     m.on('warning', (msg) => {
       emittedMessage = msg;
     });
-    m
-      .load(prepareConnections(3), models)
+    m.load(prepareConnections(3), models)
       .then(() => {
         expect(emittedMessage).to.equal(
           'A connection to "alias_1" could not be established; Invalid credentials.'
@@ -324,8 +311,7 @@ describe('➔ Modellr', () => {
   it('Fail to load a model', (done) => {
     const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
     m.models.push('house.error');
-    m
-      .load(connection, models)
+    m.load(connection, models)
       .catch((error) => {
         expect(error.message).to.be.a('string');
         expect(error.message).to.have.string('The "house.error" model could not be loaded');
