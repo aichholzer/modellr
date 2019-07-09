@@ -38,7 +38,7 @@
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^5.3.0",
-    "snyk": "^1.190.0"
+    "snyk": "^1.192.4"
   },
   "devDependencies": {
     "chai": "^4.1.2",
