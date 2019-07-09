@@ -30,12 +30,15 @@
     "eslint": "eslint --quiet .",
     "eslint:fix": "eslint --quiet --fix .",
     "test": "npm run eslint && istanbul cover _mocha -- -R spec",
-    "report": "codecov && cat ./coverage/lcov.info | coveralls"
+    "report": "codecov && cat ./coverage/lcov.info | coveralls",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^5.3.0"
+    "sequelize": "^5.3.0",
+    "snyk": "^1.190.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -50,5 +53,6 @@
     "mocha": "^6.0.0",
     "prettier": "^1.13.3",
     "sinon": "^7.2.4"
-  }
+  },
+  "snyk": true
 }
