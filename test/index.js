@@ -20,11 +20,10 @@ const testInstance = (instance) => {
   expect(Object.keys(instance.models)).to.have.lengthOf(4);
 };
 const prepareConnections = (number) =>
-  new Array(number).fill({}).map((conn, index) =>
-    Object.assign({}, defaultOptions, {
-      alias: `alias_${index}`
-    })
-  );
+  new Array(number).fill({}).map((conn, index) => ({
+    ...defaultOptions,
+    alias: `alias_${index}`
+  }));
 
 let [m, sandbox] = [];
 describe('➔ Modellr', () => {
@@ -53,7 +52,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Single DB connection', (done) => {
-    const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
+    const connection = { ...defaultOptions, alias: 'alias' };
     m.load(connection, models)
       .then(() => {
         expect(m.modellrSequelizeInstances).to.be.an('object');
@@ -82,7 +81,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Use default alias', (done) => {
-    const connection = Object.assign({}, defaultOptions);
+    const connection = { ...defaultOptions };
     m.load(connection, models)
       .then(() => {
         testInstance(m.instance('default'));
@@ -132,7 +131,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Get a model from an instance (via automatic selector)', (done) => {
-    const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
+    const connection = { ...defaultOptions, alias: 'alias' };
     m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
@@ -163,7 +162,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Get a model from an instance', (done) => {
-    const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
+    const connection = { ...defaultOptions, alias: 'alias' };
     m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
@@ -197,7 +196,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Get a model from an instance (no instance alias)', (done) => {
-    const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
+    const connection = { ...defaultOptions, alias: 'alias' };
     m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
@@ -228,7 +227,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Get a null instead of model from an instance', (done) => {
-    const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
+    const connection = { ...defaultOptions, alias: 'alias' };
     m.load(connection, models)
       .then(() => {
         expect(Object.keys(m.modellrSequelizeInstances)).to.have.lengthOf(2);
@@ -254,10 +253,11 @@ describe('➔ Modellr', () => {
   it('Single DB connection (with error with emitted event)', (done) => {
     sandbox.restore();
     sandbox.stub(Sequelize.prototype, 'authenticate').rejects(new Error('Invalid credentials.'));
-    const connection = Object.assign({}, defaultOptions, {
+    const connection = {
+      ...defaultOptions,
       alias: 'alias',
       host: 'localhost_error'
-    });
+    };
 
     let emittedMessage;
     m.on('warning', (msg) => {
@@ -309,7 +309,7 @@ describe('➔ Modellr', () => {
   });
 
   it('Fail to load a model', (done) => {
-    const connection = Object.assign({}, defaultOptions, { alias: 'alias' });
+    const connection = { ...defaultOptions, alias: 'alias' };
     m.models.push('house.error');
     m.load(connection, models)
       .catch((error) => {
