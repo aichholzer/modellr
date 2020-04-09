@@ -35,7 +35,7 @@
     "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
-    "pg": "^7.18.2",
+    "pg": "^8.0.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.5",
     "snyk": "^1.299.0"
